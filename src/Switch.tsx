@@ -1,5 +1,12 @@
-import { useCallback, useRef, useState } from "react";
-import { Pressable, StyleProp, Animated, ViewStyle } from "react-native";
+import { createElement, useCallback, useRef, useState } from "react";
+import {
+  Pressable,
+  StyleProp,
+  Animated,
+  ViewStyle,
+  Platform,
+  Switch as NativeSwitch,
+} from "react-native";
 import type { SwitchProps } from "react-native";
 import { PlatformColor } from "react-native-platform-color";
 
@@ -7,6 +14,9 @@ const trackWidthes = { default: 48, small: 38, large: 60 };
 const trackHeightes = { default: 30, small: 24, large: 38 };
 
 export function Switch(props: SwitchProps): JSX.Element {
+  if (Platform.OS !== "web") {
+    return createElement(NativeSwitch, props);
+  }
   const {
     value = false,
     onChange,
